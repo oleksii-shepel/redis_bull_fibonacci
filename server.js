@@ -4,6 +4,7 @@ const util = require("util");
 const dotenv = require("dotenv");
 const Queue = require('bull');
 const { v4: uuidv4 } = require('uuid');
+const morgan = require('morgan');
 
 dotenv.config({ path: './config.env' });
 
@@ -11,6 +12,7 @@ const taskQueue = new Queue('task queue', process.env.REDIS_URL);
 
 const app = express();
 
+app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
